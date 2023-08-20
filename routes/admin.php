@@ -65,6 +65,10 @@ Route::prefix('settings')->group(function(){
         return view('admin.settings.index');
     });
 
+    Route::group(['prefix' => 'general'], function () {
+        Route::get('/', [UpdateController::class, 'index']);
+    });
+
     Route::group(['prefix' => 'update-app'], function () {
         Route::get('/', [UpdateController::class, 'index']);
         Route::post('/basic', [UpdateController::class, 'basicUpdate']);
