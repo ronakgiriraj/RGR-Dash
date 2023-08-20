@@ -66,7 +66,8 @@ Route::prefix('settings')->group(function(){
     });
 
     Route::group(['prefix' => 'general'], function () {
-        Route::get('/', [UpdateController::class, 'index']);
+        Route::get('/', [SettingController::class, 'index']);
+        Route::get('/', [SettingController::class, 'index']);
     });
 
     Route::group(['prefix' => 'update-app'], function () {
