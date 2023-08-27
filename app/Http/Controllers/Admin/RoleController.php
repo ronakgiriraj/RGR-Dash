@@ -113,7 +113,7 @@ class RoleController extends Controller
     public function delete(Request $request, $id){
         $this->authorize('admin_role_permissions_delete_role');
 
-        $role = Roles::find($id);
+        $role = Roles::findOrFail($id);
         if ($role->id !== 2) {
             $role->delete();
         }

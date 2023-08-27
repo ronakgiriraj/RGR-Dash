@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 
 class UpdateController extends Controller
@@ -16,7 +17,7 @@ class UpdateController extends Controller
         $this->authorize("admin_settings_update_app");
 
         $data = [
-            'pageTitle' => 'Update App'
+            'pageTitle' => __('admin/setting.update_title')
         ];
 
         return view('admin.settings.update_app.index', $data);
@@ -50,7 +51,7 @@ class UpdateController extends Controller
 
         return response()->json([
             'code' => 200,
-            'msg' => trans('update.app_updated_successful')
+            'msg' => __('admin/setting.app_updated_successful')
         ]);
     }
 
@@ -103,7 +104,7 @@ class UpdateController extends Controller
 
         return response()->json([
             'code' => 200,
-            'msg' => trans('update.app_updated_successful_json')
+            'msg' => __('admin/setting.app_updated_successful')
         ]);
     }
 

@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="addPermissionModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-simple">
         <div class="modal-content p-3">

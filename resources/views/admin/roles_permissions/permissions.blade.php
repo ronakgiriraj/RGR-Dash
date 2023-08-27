@@ -1,7 +1,5 @@
 @extends('admin.layouts.app')
 @push('styles_top')
-    <link rel="stylesheet" href="/assets/vendor/libs/animate-css/animate.css">
-    <link rel="stylesheet" href="/assets/vendor/libs/sweetalert2/sweetalert2.css">
 @endpush
 @section('contant')
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -42,10 +40,15 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a permission-caption="{{$permission->caption}}" permission-id="{{ $permission->id }}" style="cursor: pointer" class="dropdown-item editPermissionBtn"><i
-                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <a permission-id="{{ $permission->id }}" style="cursor: pointer" class="dropdown-item deletePermissionBtn"><i class="bx bx-trash me-1"></i>
-                                                Delete</a>
+                                            <a permission-id="{{ $permission->id }}" href="javascript:void(0);" class="dropdown-item editPermissionBtn">
+                                                <i class="bx bx-edit-alt me-1"></i> Edit
+                                            </a>
+
+                                            @if($permission->canDelete())
+                                                @can('admin_role_permissions_delete_role')
+                                                    @include('admin.includes.delete_button',['url' => '/' . getAdminUrl() . '/permissions/' . $permission->id . '/delete', 'btn_type' => 'dropdown'])
+                                                @endcan
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
@@ -68,7 +71,6 @@
 @push('styles_bottom')
 @endpush
 @push('scripts_bottom')
-    <script src="/assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <script>
         $(document).ready(function() {
             $('.addPermissionBtn').click(function (){

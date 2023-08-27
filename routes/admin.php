@@ -35,7 +35,7 @@ Route::prefix('permissions')->group(function(){
     Route::post('store', [PermissionController::class, 'store']);
     Route::get('edit/{id}', [PermissionController::class, 'edit']);
     Route::post('update', [PermissionController::class, 'update']);
-    Route::post('delete', [PermissionController::class, 'delete']);
+    Route::get('/{id}/delete', [PermissionController::class, 'delete']);
 });
 
 Route::prefix('roles')->group(function(){
@@ -52,7 +52,7 @@ Route::prefix('users')->group(function(){
     Route::get('create', [UserController::class, 'create']);
     Route::post('store', [UserController::class, 'store']);
     Route::get('view/{id}/{view?}', [UserController::class, 'view']);
-    Route::get('edit/{id}/{edit}', [UserController::class, 'edit']);
+    Route::get('edit/{id}', [UserController::class, 'edit']);
     Route::post('update', [UserController::class, 'update']);
     Route::get('action/{id}/{action}', [UserController::class, 'action']);
 

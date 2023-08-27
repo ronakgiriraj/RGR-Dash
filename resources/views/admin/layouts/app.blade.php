@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="/assets/admin/vendor/css/theme-default.css" class="template-customizer-theme-css" />
 
     <link rel="stylesheet" href="/assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/animate-css/animate.css">
+    <link rel="stylesheet" href="/assets/vendor/libs/sweetalert2/sweetalert2.css">
 
     <script src="/assets/admin/vendor/js/helpers.js"></script>
 
@@ -93,8 +95,7 @@
     <script src="/assets/admin/vendor/libs/popper/popper.js"></script>
     <script src="/assets/admin/vendor/js/bootstrap.js"></script>
     <script src="/assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    {{-- <script src="/assets/admin/vendor/libs/hammer/hammer.js"></script> --}}
-    {{-- <script src="/assets/admin/vendor/libs/i18n/i18n.js"></script> --}}
+    <script src="/assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <script src="/assets/admin/vendor/js/menu.js"></script>
     <script src="/assets/admin/js/main.js"></script>
 

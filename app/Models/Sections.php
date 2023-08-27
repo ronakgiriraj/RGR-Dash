@@ -15,6 +15,19 @@ class Sections extends Model
 
     protected $fillable = ['name', 'caption', 'group_id'];
 
+    public static $corePermission = 'admin';
+
+    public function canDelete()
+    {
+        switch ($this->name) {
+            case self::$corePermission:
+                return false;
+                break;
+            default:
+                return true;
+        }
+    }
+
     public function children() {
         return $this->hasMany($this, 'group_id', 'id');
     }

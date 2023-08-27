@@ -315,6 +315,11 @@ animation: load 1s infinite linear;
         grid-template-columns: 10ch auto;
         text-align: left !important;
         align-items: center;
+        width: 100%;
+        text-wrap: wrap;
+        word-wrap: break-word;
+        word-break: break-all;
+        border-bottom-width: 1px;
     }
 
     .rgrtable td:last-child{
@@ -325,7 +330,6 @@ animation: load 1s infinite linear;
         content: attr(row-name) " : ";
         font-weight: 700;
         text-transform: capitalize;
-        text-wrap: wrap;
     }
 }
 
@@ -334,3 +338,16 @@ animation: load 1s infinite linear;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+@media screen and (max-width: 576px) {
+    .m-s-0{
+        margin: 0 !important;
+    }
+
+    .p-s-0{
+        padding: 0 !important;
+    }
+
+    .p-s-20{
+        padding-top: 20px !important;
+    }
+}

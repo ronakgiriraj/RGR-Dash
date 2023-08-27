@@ -13,7 +13,7 @@
     @endif
 
     <div class="row header-container">
-        <h4 style="margin: 0" class="fw-bold  w-auto"><span class="text-muted fw-light"> <a href="/admin" class="text-secondary">Dashboard</a> / Settings / </span> Update App (v {{ env('APP_VERSION') }})</h4>
+        <h4 style="margin: 0" class="fw-bold  w-auto"><span class="text-muted fw-light"> <a href="/admin" class="text-secondary">{{ __('admin/dashboard.dashboard') }}</a> / {{ __('admin/setting.setting')}} / </span> {{ __('admin/setting.update_title') }} (v {{ env('APP_VERSION') }})</h4>
     </div>
 
     <div class="row">
@@ -26,20 +26,20 @@
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
-                                    <label class="mb-3">Update with Zip file</label>
+                                    <label class="mb-3">{{ __('admin/setting.update_basic_label')}}</label>
 
                                     <div class="input-group">
                                         <input type="file" name="file" class="form-control js-ajax-file cursor-pointer" id="basicZip">
                                         <div class="invalid-feedback custom-inv-fck"></div>
                                     </div>
 
-                                    <p class="text-muted mt-3">Use it if you want to update your platform version.</p>
+                                    <p class="text-muted mt-3">{{ __('admin/setting.update_basic_hint')}}</p>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="basic_update_confirm" class="js-ajax-basic_update_confirm form-check-input" tabindex="3" id="basicUpdateConfirm">
-                                        <label class="form-check-label" for="basicUpdateConfirm">I confirm that read all update instructions carefully.</label>
+                                        <label class="form-check-label" for="basicUpdateConfirm">{{ __('admin/setting.update_declaration') }}</label>
                                         <div class="invalid-feedback custom-inv-fck"></div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="js-update-btn btn btn-primary">Update</button>
+                                <button type="button" class="js-update-btn btn btn-primary">{{ __('admin/setting.update') }}</button>
                             </form>
                         </div>
                     </div>
@@ -63,19 +63,19 @@
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
-                                    <label class="mb-3">Update with JSON</label>
+                                    <label class="mb-3">{{ __('admin/setting.update_custom') }}</label>
 
                                     <div class="input-group">
                                         <input type="file" name="file" class="js-ajax-file form-control cursor-pointer" id="basicZip">
                                     </div>
 
-                                    <p class="text-muted mt-3">Use it if you want to replace several files like bug fixes</p>
+                                    <p class="text-muted mt-3">{{ __('admin/setting.update_custom_hint') }}</p>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="custom_update_confirm" class="js-ajax-custom_update_confirm form-check-input" tabindex="3" id="customUpdateConfirm">
-                                        <label class="form-check-label" for="customUpdateConfirm">I confirm that read all update instructions carefully.</label>
+                                        <label class="form-check-label" for="customUpdateConfirm">{{ __('admin/setting.update_declaration') }}</label>
                                         <div class="invalid-feedback custom-inv-fck"></div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="js-update-btn btn btn-primary">Start Update</button>
+                                <button type="button" class="js-update-btn btn btn-primary">{{ __('admin/setting.update_start') }}</button>
                             </form>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                             <form action="/admin/settings/update-app/database" method="get">
                                 {{ csrf_field() }}
 
-                                <p class="text-muted font-12 mb-3">Your database will be updated to the latest version if changes are available.</p>
+                                <p class="text-muted font-12 mb-3">{{ __('admin/setting.update_database_hint')}}</p>
 
                                 <div class="js-database-update-message my-25 text-success"></div>
 
@@ -106,13 +106,13 @@
                                 <div class="form-group mb-3">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="database_update_confirm" class="js-ajax-database_update_confirm form-check-input" tabindex="3" id="databaseUpdateConfirm">
-                                        <label class="form-check-label" for="databaseUpdateConfirm">I confirm that read all update instructions carefully.</label>
+                                        <label class="form-check-label" for="databaseUpdateConfirm">{{ __('admin/setting.update_declaration') }}</label>
                                         <div class="invalid-feedback custom-inv-fck"></div>
                                     </div>
                                 </div>
 
 
-                                <button type="button" class="js-database-update-btn btn btn-primary">Run Update</button>
+                                <button type="button" class="js-database-update-btn btn btn-primary">{{ __('admin/setting.update_run') }}</button>
                             </form>
                         </div>
                     </div>
@@ -124,12 +124,12 @@
     <div class="col-12 mb-4">
         <div class="card">
             <div class="card-body">
-                <div class="section-title ml-0 mt-0 mb-3"><h4>Hints</h4></div>
+                <div class="section-title ml-0 mt-0 mb-3"><h4>{{ __('admin/setting.hints') }}</h4></div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="media-body">
-                            <div class="text-primary mt-0 mb-1 font-weight-bold">Database Update</div>
-                            <div class=" text-small font-600-bold mb-2">Your database will be updated to the latest version if any changes are available. Database changes are not available in all updates.</div>
+                            <div class="text-primary mt-0 mb-1 font-weight-bold">{{ __('admin/setting.hint_database_title' )}}</div>
+                            <div class=" text-small font-600-bold mb-2">{{ __('admin/setting.hint_database_description' )}}</div>
                         </div>
                     </div>
                 </div>

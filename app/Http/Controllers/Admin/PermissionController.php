@@ -63,7 +63,7 @@ class PermissionController extends Controller
     }
 
     public function edit($id){
-        $this->authorize('admin_role_permissions_edit_permission');
+        $this->authorize('admin_role_permissions_edit_permissions');
         $permission = Sections::find($id);
 
         $data = [
@@ -78,7 +78,7 @@ class PermissionController extends Controller
     }
 
     public function update(Request $request){
-        $this->authorize('admin_role_permissions_edit_permission');
+        $this->authorize('admin_role_permissions_edit_permissions');
 
         $validate = $request->validate([
             'caption' => 'required|max:255',
@@ -105,15 +105,12 @@ class PermissionController extends Controller
         return $data;
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request, $id){
         $this->authorize('admin_role_permissions_delete_permission');
 
-        $validate = $request->validate([
-            'delete_permission_id' => 'required|max:20',
-        ]);
+        $permission = Sections::findOrFail($id);
+        $permission->delete();
 
-        $delete = Sections::find($request['delete_permission_id'])->delete();
-
-        return redirect('/' . getAdminUrl() . '/permissions')->with('success', 'Permissions Deleted Successfully');
+        return back()->with('success', 'Permission Deleted Successfully');
     }
 }
