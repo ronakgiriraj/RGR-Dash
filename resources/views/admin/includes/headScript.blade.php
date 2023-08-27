@@ -23,7 +23,7 @@
                             error: function (err) {
                                 $(btn).removeClass('button__loader');
                             }
-                        })
+                        });
                     }else{
                         $(renderContainer).html(isLogin);
                         $(btn).removeClass('button__loader');
@@ -83,4 +83,20 @@
             });
         });
     }
+
+    function imageRender(){
+        $('.uploadInput').change(function (){
+            const file = this.files[0];
+            var show = '#'+$(this).attr('uploadRender');
+
+            if (file){
+            let reader = new FileReader();
+            reader.onload = function(event){
+                $(show).attr('src', event.target.result);
+            }
+            reader.readAsDataURL(file);
+            }
+        });
+    }
+
 </script>

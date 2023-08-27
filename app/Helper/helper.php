@@ -39,3 +39,11 @@ function renderOptionsSameValue($name, $tableData, $value){
 function renderOptions($name, $tableData, $value, $inner){
         echo '<option '.checkSelected($name, $tableData, $value).' value="'.$value.'">'.$inner.'</option>';
 }
+
+function createFile($request, $name, $folder, $prefix)
+{
+    $file = $prefix.'_'.uniqid() . '.' . $request->file($name)->getClientOriginalExtension();
+
+    return '/store/' . $request->file($name)->storeAs($folder, $file);
+}
+

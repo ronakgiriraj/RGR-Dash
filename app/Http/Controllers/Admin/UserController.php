@@ -26,7 +26,7 @@ class UserController extends Controller
         return view('admin.users.index',$data);
     }
 
-    public function create($id = null){
+    public function create(){
         $this->authorize('admin_users_create_new_user');
         if(!empty($id)){
             $user = User::findOrFail($id);
@@ -37,13 +37,29 @@ class UserController extends Controller
         $data = [
             'roles' => $roles,
             'user' => $user ?? null,
+            'modalTitle' => 'Create New User',
+            'submitBtn' => 'Save User',
+            'formUrl' => '/' . getAdminUrl() . '/users/store',
         ];
         return view('admin.users.modal.create',$data);
     }
 
     public function edit($id){
         $this->authorize('admin_users_edit_user');
-        return $this->create($id);
+        if(!empty($id)){
+            $user = User::findOrFail($id);
+        }
+
+        $roles = Roles::get();
+
+        $data = [
+            'roles' => $roles,
+            'user' => $user,
+            'modalTitle' => 'Edit User',
+            'submitBtn' => 'Update User',
+            'formUrl' => '/' . getAdminUrl() . '/users/update',
+        ];
+        return view('admin.users.modal.create',$data);
     }
 
     public function store(Request $request){
@@ -56,114 +72,123 @@ class UserController extends Controller
             'email' => 'required|max:255|unique:users,email',
             'password' => 'required|max:20|min:6',
             'bio' => 'max:500',
-            'role_id' => 'required',
+            'role_id' => 'required|exists:roles,id',
+            'avatar' => 'file|max:2024'
         ]);
 
-        $reqData = $request->all();
+        $user = User::create([
+            'name' => $request['name'],
+            'username' => $request['username'],
+            'mobile' => $request['mobile'],
+            'email' => $request['email'],
+            'bio' => $request['bio'],
+            'password' => Hash::make($request['password']),
+            'role_id' => $request['role_id'],
+            'attendance_enabled' => ($request['attendance_enabled'] ?? '') == 'on' ? '1' : '0',
+        ]);
 
-        $channelPartnerId = auth()->guard('web')->user()->channel_partner_id;
-        $reqData['channel_partner_id'] = $channelPartnerId;
-        $reqData['password'] = Hash::make($reqData['password']);
-        $reqData['status'] = 'active';
-        $reqData['verified'] = '1';
-        $reqData['attendance_enabled'] = ($reqData['attendance_enabled'] ?? '') == 'on' ? '1' : '0';
-
-        // p_d($request->all());
-
-        $user = User::create($reqData);
-
-        if(empty($reqData['avatar'])){
+        if(empty($request['avatar'])){
             $user->avatar = '/assets/admin/img/avatars/default-avatar.png';
             $user->save();
         }else{
-            $user->avatar = $this->createImage($request, $user, 'avatar');
+            $user->avatar = createFile($request, 'avatar', $user->id.  '/avatar', 'avatar');
             $user->save();
         }
 
-        return redirect('/admin/users')->with('success', 'New User Created Successfully');
+        $data = [
+            'msg' => 'New User Created Successfully'
+        ];
+
+        return $data;
+    }
+
+    public function update(Request $request){
+        $this->authorize('admin_users_edit_user');
+
+        $user = User::findOrFail($request['id']);
+
+        if ($user->name !== $request['name']){
+            $request->validate([
+                'name' => ['required','max:255',],
+            ]);
+        }
+
+        if ($user->username !== $request['username']){
+            $request->validate([
+                'username' => ['required','string','regex:/^\S*$/u','max:255','unique:users,username',],
+            ]);
+        }
+
+        if ($user->mobile !== $request['mobile']){
+            $request->validate([
+                'mobile' => 'max:11|numeric|unique:users,mobile',
+            ]);
+        }
+
+        if ($user->email !== $request['email']){
+            $request->validate([
+                'email' => 'required|max:255|unique:users,email',
+            ]);
+        }
+
+        if ($user->bio !== $request['bio']){
+            $request->validate([
+                'bio' => 'max:255',
+            ]);
+        }
+
+        if ($user->role_id !== $request['role_id']){
+            $request->validate([
+                'role_id' => 'required|exists:roles,id'
+            ]);
+        }
+
+        if(!empty($request['avatar'])){
+            $request->validate([
+                'avatar' => 'required|file|max:2024'
+            ]);
+
+            $avatar = createFile($request, 'avatar', $user->id.  '/avatar', 'avatar');
+        }
+
+        $user->update([
+            'name' => $request['name'],
+            'username' => $request['username'],
+            'mobile' => $request['mobile'],
+            'email' => $request['email'],
+            'bio' => $request['bio'],
+            'password' => Hash::make($request['password']),
+            'role_id' => $request['role_id'] ?? $user->role_id,
+            'avatar' => !empty($request['avatar']) ? $avatar : $user->avatar,
+        ]);
+
+        $data = [
+            'msg' => 'User Updated Successfully'
+        ];
+
+        return $data;
     }
 
     public function profile(){
-        return $this->view(auth()->guard('web')->user()->id, 'account');
+        return $this->view(auth()->user()->id, 'account');
     }
 
     public function view($user_id, $view = 'account'){
         $user = User::find($user_id);
-        // $subscriberKyc = SubscriberKyc::find($subscriber->kyc_id);
-
-        // if ($view === 'installation'){
-        //     $InstallationInformation = InstallationInformation::find($subscriber->installation_information_id);
-        // }
 
         $data = [
             'pageTitle' => 'Subscriber Create',
             'view' => $view,
             'user' => $user,
-            // 'subscriberKyc' => $subscriberKyc ?? '',
-            // 'installationInformation' => $InstallationInformation ?? '',
         ];
+
         return view('admin.users.profile',$data);
     }
 
-    public function createImage($request, $user, $img)
-    {
-        $folderPath = "UId" . $user->id . "/avatar";
+    public function delete($id){
+        User::findorFail($id)->delete();
 
-        $file = uniqid() . '.' . $request->file($img)->getClientOriginalExtension();
-
-        return '/store/'.$request->file($img)->storeAs($folderPath, $file);
-    }
-
-    public function update(Request $request){
-        $validate = $request->validate([
-            'n_name' => 'required|max:255',
-            'n_bio' => 'max:500',
-        ]);
-        // p_d($request->all());
-
-        $user = User::find($request['user_id']);
-
-        // p_d($user->username);
-        if ($user->username !== $request['n_username']){
-            $validate = $request->validate([
-                'n_username' => ['required','string','regex:/^\S*$/u','max:255','unique:users,username',],
-            ]);
-        }
-        if ($user->mobile !== $request['n_mobile']){
-            $validate = $request->validate([
-                'n_mobile' => 'max:11|numeric|unique:users,mobile',
-            ]);
-        }
-        if ($user->email !== $request['n_email']){
-            $validate = $request->validate([
-                'n_email' => 'required|max:255|unique:users,email',
-            ]);
-        }
-
-        if(!empty($request['n_avatar'])){
-            $avatar = $this->createImage($request, $user, 'n_avatar');
-        }
-
-        $user->update([
-            'name' => $request['n_name'],
-            'username' => $request['n_username'],
-            'mobile' => $request['n_mobile'],
-            'email' => $request['n_email'],
-            'bio' => $request['n_bio'],
-            'role_id' => $request['n_role_id'] ?? $user->role_id,
-            'avatar' => $avatar ?? $user->avatar,
-            'attendance_enabled' => ($request['n_attendance_enabled'] ?? '') == 'on' ? '1' : '0',
-        ]);
-
-        return back()->with('success', 'User Updated Successfully');
-    }
-
-    public function actionByPost(Request $request, $action){
-        if($action === 'delete'){
-            User::find($request['user_id'])->delete();
-
-            return redirect('/admin/users')->with('success', 'User Deleted Successfully');
-        }
+        return redirect('/admin/users')->with('success', 'User Deleted Successfully');
     }
 
     public function impersonate($user_id)

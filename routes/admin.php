@@ -54,7 +54,7 @@ Route::prefix('users')->group(function(){
     Route::get('view/{id}/{view?}', [UserController::class, 'view']);
     Route::get('edit/{id}', [UserController::class, 'edit']);
     Route::post('update', [UserController::class, 'update']);
-    Route::get('action/{id}/{action}', [UserController::class, 'action']);
+    Route::get('/{id}/delete', [UserController::class, 'delete']);
 
     Route::get('profile/{view?}', [UserController::class, 'view']);
     Route::get('/{user_id}/impersonate', [UserController::class, 'impersonate']);
