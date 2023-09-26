@@ -17,7 +17,7 @@ function pd($data)
 
 function getAdminUrl()
 {
-    return 'admin';
+    return $coreSetting['admin_url'] ?? 'admin';
 }
 
 function checkSelected($name, $tableData, $data){

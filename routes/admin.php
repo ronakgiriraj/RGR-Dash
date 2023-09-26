@@ -62,12 +62,16 @@ Route::prefix('users')->group(function(){
 
 Route::prefix('settings')->group(function(){
     Route::get('/', function(){
-        return view('admin.settings.index');
+        $data = [
+            'pageTitle' => 'Settings',
+        ];
+
+        return view('admin.settings.index', $data);
     });
 
     Route::group(['prefix' => 'general'], function () {
-        Route::get('/', [SettingController::class, 'index']);
-        Route::get('/', [SettingController::class, 'index']);
+        Route::get('/', [SettingController::class, 'general']);
+        Route::post('/store', [SettingController::class, 'generalStore']);
     });
 
     Route::group(['prefix' => 'update-app'], function () {
@@ -77,3 +81,4 @@ Route::prefix('settings')->group(function(){
         Route::post('/database', [UpdateController::class, 'databaseUpdate']);
     });
 });
+

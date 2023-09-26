@@ -14,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>{{ $pageTitle ?? '' }} | {{ $generalSettings['site_name'] ?? env('APP_NAME') }}</title>
+    <title>{{ $pageTitle ?? '' }} | {{ $coreSetting['site_name'] ?? env('APP_NAME') }}</title>
 
     <meta name="description" content="" />
 
@@ -40,7 +40,6 @@
 
   <body>
     <!-- Content -->
-
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">

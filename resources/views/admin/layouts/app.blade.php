@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ $pageTitle ?? '' }} | {{ $generalSettings['site_name'] ?? env('APP_NAME') }}</title>
+    <title>{{ $pageTitle ?? '' }} | {{ $coreSetting['site_name'] ?? env('APP_NAME') }}</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <link rel="icon" type="image/x-icon" href="/assets/admin/img/favicon/favicon.png" />
+    <link rel="icon" type="image/x-icon" href="{{ $coreSetting['site_favicon'] ?? '/assets/admin/img/favicon/favicon.png' }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

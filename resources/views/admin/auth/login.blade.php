@@ -9,7 +9,7 @@
                     <span class="app-brand-logo demo">
                         {{-- logo --}}
                     </span>
-                    <span class="app-brand-text demo text-body fw-bolder">{{ $generalSettings['site_name'] ?? env('APP_NAME') }}</span>
+                    <span class="app-brand-text demo text-body fw-bolder">{{ $coreSetting['site_name'] ?? env('APP_NAME') }}</span>
                 </a>
             </div>
 

@@ -99,4 +99,18 @@
         });
     }
 
+    function passwordInput(){
+        $('.passwordBtn').click(function (){
+            if($('#'+$(this).attr('passwordInput')).attr('type') === 'password'){
+                $('#'+$(this).attr('passwordInput')).attr('type', 'text');
+                $('#'+$(this).attr('passwordIcon')).addClass('bx-show');
+                $('#'+$(this).attr('passwordIcon')).removeClass('bx-hide');
+            }else{
+                $('#'+$(this).attr('passwordInput')).attr('type', 'password');
+                $('#'+$(this).attr('passwordIcon')).addClass('bx-hide');
+                $('#'+$(this).attr('passwordIcon')).removeClass('bx-show');
+            }
+        });
+    }
+
 </script>

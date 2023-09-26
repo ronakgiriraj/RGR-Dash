@@ -6,7 +6,7 @@
             <script>
                 document.write(new Date().getFullYear());
             </script>
-            <a href="https://tankaar.in" target="_blank" class="footer-link fw-bolder">{{ $generalSettings['site_name'] ?? env('APP_NAME') }}</a>, made with ❤️ by
+            <a href="{{ $coreSetting['site_url'] ?? env('APP_URL') }}" target="_blank" class="footer-link fw-bolder">{{ $coreSetting['site_name'] ?? env('APP_NAME') }}</a>, made with ❤️ by
             <a href="https://linkedin.com/in/ronakgiriraj" target="_blank" class="footer-link fw-bolder">ronakgiriraj</a>
         </div>
         <div>

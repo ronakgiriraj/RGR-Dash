@@ -22,7 +22,7 @@ return [
     'update_title' => 'Update App',
     'app_updated_successful' => 'Your App Updated Successfully',
     'update_basic' => 'Update with Zip file',
-    'update_hint' => 'Use it if you want to update your platform version.',
+    'update_basic_hint' => 'Use it if you want to update your platform version.',
     'update_declaration' => 'I confirm that read all update instructions carefully.',
     'update_run' => 'Run Update',
     'update' => 'Update',
