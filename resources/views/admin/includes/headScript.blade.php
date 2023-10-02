@@ -23,7 +23,7 @@
                             error: function (err) {
                                 $(btn).removeClass('button__loader');
                             }
-                        });
+                        })
                     }else{
                         $(renderContainer).html(isLogin);
                         $(btn).removeClass('button__loader');
@@ -35,7 +35,7 @@
             })
         }
     }
-    function makeFormSubmit(form, btn, url, afterSuccess){
+    function makeFormSubmit(form, btn, url, afterSuccess, isRe = true){
         $(form).submit(function(e) {
             e.preventDefault();
 
@@ -53,16 +53,20 @@
                 success:function(result){
                     afterSuccess(result);
 
-                    Swal.fire({
-                        title: result.msg,
-                        timer: 2000,
-                        icon: 'success',
-                    });
+                    if(isRe && result.status == 200){
+                        Swal.fire({
+                            title: result.msg,
+                            timer: 2000,
+                            icon: 'success',
+                        });
+                    }
 
                     $(btn).removeClass('button__loader');
                     $(btn).prop('disabled', false);
 
-                    location.reload();
+                    if(isRe && result.status == 200){
+                        location.reload();
+                    }
                 },
                 error: function (err) {
                     if (err.status == 422) { // when status code is 422, it's a validation issue
@@ -83,34 +87,4 @@
             });
         });
     }
-
-    function imageRender(){
-        $('.uploadInput').change(function (){
-            const file = this.files[0];
-            var show = '#'+$(this).attr('uploadRender');
-
-            if (file){
-            let reader = new FileReader();
-            reader.onload = function(event){
-                $(show).attr('src', event.target.result);
-            }
-            reader.readAsDataURL(file);
-            }
-        });
-    }
-
-    function passwordInput(){
-        $('.passwordBtn').click(function (){
-            if($('#'+$(this).attr('passwordInput')).attr('type') === 'password'){
-                $('#'+$(this).attr('passwordInput')).attr('type', 'text');
-                $('#'+$(this).attr('passwordIcon')).addClass('bx-show');
-                $('#'+$(this).attr('passwordIcon')).removeClass('bx-hide');
-            }else{
-                $('#'+$(this).attr('passwordInput')).attr('type', 'password');
-                $('#'+$(this).attr('passwordIcon')).addClass('bx-hide');
-                $('#'+$(this).attr('passwordIcon')).removeClass('bx-show');
-            }
-        });
-    }
-
 </script>
