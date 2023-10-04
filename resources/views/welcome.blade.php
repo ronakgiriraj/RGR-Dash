@@ -7,6 +7,6 @@
     <title>RGR Dash</title>
 </head>
 <body>
-    Hello
+    <h1>Hello</h1>
 </body>
 </html>
