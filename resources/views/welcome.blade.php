@@ -7,6 +7,8 @@
     <title>RGR Dash</title>
 </head>
 <body>
-    <h1>Hello</h1>
+    <div class="d-flex justify-content-center align-items-center w-100 h-100">
+        <h1>Home</h1>
+    </div>
 </body>
 </html>
