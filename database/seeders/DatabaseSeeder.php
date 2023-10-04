@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(){
         DB::table('settings')->insert([
-            'page' => 'general',
-            'name' => 'general',
+            'page' => 'core',
+            'name' => 'core',
             'value' => json_encode([
                 'site_name' => 'RGR Dash',
                 'site_favicon' => '/assets/admin/img/favicon/favicon.png',
