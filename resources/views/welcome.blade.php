@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="d-flex justify-content-center align-items-center w-100 h-100">
-        <h1>Home</h1>
+        <h1></h1>
     </div>
 </body>
 </html>
