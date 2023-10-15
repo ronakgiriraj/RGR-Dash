@@ -10,7 +10,6 @@
     @endif
     <div class="row header-container">
         <h4 style="margin: 0" class="fw-bold  w-auto"><span class="text-muted fw-light"> <a href="/admin" class="text-secondary">Dashboard</a> / </span> Settings</h4>
-        {{-- <button type="button" class="btn btn-primary ad-rgr-btn ml-auto addPermissionBtn">New Permissions</button> --}}
     </div>
 
     <section class="section">
